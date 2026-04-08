@@ -11,7 +11,7 @@
     "href": "#contacts"
   },
   "image": {
-    "src": "https://placehold.co/1200x700/1565C0/FFFFFF?text=Enerline+Energy",
-    "alt": "Промисловий енергетичний об'єкт"
+    "src": "/assets/power-grid-wide.jpg",
+    "alt": "Підстанція та лінії електропередач для промислового енергопостачання"
   }
 }

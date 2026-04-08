@@ -29,7 +29,7 @@ export const Header = ({ sections }: HeaderProps) => {
       ].join(' ')}
     >
       <Container className="flex min-h-[84px] items-center justify-between gap-6">
-        <Logo />
+        <Logo imageClassName="h-[6.5rem]" />
 
         <button
           className="inline-flex h-11 w-11 items-center justify-center rounded-card border border-border text-text lg:hidden"

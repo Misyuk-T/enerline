@@ -7,6 +7,8 @@ export interface ContainerProps extends PropsWithChildren {
 }
 
 export interface LogoProps {
+  className?: string;
+  imageClassName?: string;
   isLight?: boolean;
 }
 

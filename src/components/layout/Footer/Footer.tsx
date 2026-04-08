@@ -5,9 +5,9 @@ import { Container, Logo } from '@/components/common';
 import { SectionId } from '@/types';
 
 export const Footer = () => (
-  <footer className="border-t border-border bg-white py-6">
+  <footer className="border-t border-border bg-white">
     <Container className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-      <Logo />
+      <Logo imageClassName="h-[6.5rem]" />
       <p className="text-sm text-muted">
         © {new Date().getFullYear()} ENERLINE. Всі права захищені.
       </p>
