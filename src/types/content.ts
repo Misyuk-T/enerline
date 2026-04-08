@@ -32,6 +32,12 @@ export enum GeographyLocationKind {
   Client = 'client',
 }
 
+export enum ContentSource {
+  Auto = 'auto',
+  Local = 'local',
+  Sanity = 'sanity',
+}
+
 export interface ImageContent {
   src: string;
   alt: string;

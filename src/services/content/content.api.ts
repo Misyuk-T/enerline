@@ -1,60 +1,39 @@
+import { getLocalSiteContent } from '@/services/content/local-content.api';
+import { createSanityContentClient, getContentSource } from '@/services/content/sanity.client';
+import { getSanitySiteContent } from '@/services/content/sanity-content.api';
+
 import type { SiteContent } from '@/types';
+import { ContentSource } from '@/types';
 
-const PUBLIC_BASE_PATH = import.meta.env.BASE_URL;
+const getContentFromAutoSource = async (): Promise<SiteContent> => {
+  const sanityClient = createSanityContentClient();
 
-const resolvePublicPath = (path: string): string => {
-  if (/^(?:https?:)?\/\//.test(path)) {
-    return path;
+  if (!sanityClient) {
+    return getLocalSiteContent();
   }
 
-  const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
+  try {
+    return await getSanitySiteContent();
+  } catch (error) {
+    console.error(
+      'Failed to load published content from Sanity. Falling back to local JSON.',
+      error,
+    );
 
-  return `${PUBLIC_BASE_PATH}${normalizedPath}`;
-};
-
-const fetchContentFile = async <T>(path: string): Promise<T> => {
-  const resolvedPath = resolvePublicPath(path);
-  const response = await fetch(resolvedPath);
-
-  if (!response.ok) {
-    throw new Error(`Failed to load content from ${resolvedPath}`);
+    return getLocalSiteContent();
   }
-
-  return response.json() as Promise<T>;
 };
-
-const normalizeImage = <T extends { src: string }>(image: T): T => ({
-  ...image,
-  src: resolvePublicPath(image.src),
-});
 
 export const getSiteContent = async (): Promise<SiteContent> => {
-  const [hero, advantages, tariffs, conditions, about, geography, contacts] = await Promise.all([
-    fetchContentFile<SiteContent['hero']>('content/hero.json'),
-    fetchContentFile<SiteContent['advantages']>('content/advantages.json'),
-    fetchContentFile<SiteContent['tariffs']>('content/tariffs.json'),
-    fetchContentFile<SiteContent['conditions']>('content/conditions.json'),
-    fetchContentFile<SiteContent['about']>('content/about.json'),
-    fetchContentFile<SiteContent['geography']>('content/geography.json'),
-    fetchContentFile<SiteContent['contacts']>('content/contacts.json'),
-  ]);
+  const contentSource = getContentSource();
 
-  return {
-    hero: {
-      ...hero,
-      image: normalizeImage(hero.image),
-    },
-    advantages,
-    tariffs,
-    conditions: {
-      ...conditions,
-      image: normalizeImage(conditions.image),
-    },
-    about: {
-      ...about,
-      images: about.images.map((image) => normalizeImage(image)),
-    },
-    geography,
-    contacts,
-  };
+  if (contentSource === ContentSource.Local) {
+    return getLocalSiteContent();
+  }
+
+  if (contentSource === ContentSource.Sanity) {
+    return getSanitySiteContent();
+  }
+
+  return getContentFromAutoSource();
 };

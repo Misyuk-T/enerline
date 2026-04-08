@@ -17,4 +17,7 @@ yarn-error.log*
 .pnp.js
 
 .vscode/*
+.env
+.env.local
 studio-enerline/.env
+studio-enerline/.env.local

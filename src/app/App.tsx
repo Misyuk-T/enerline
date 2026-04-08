@@ -42,7 +42,7 @@ export const App = () => {
             <h1 className="text-3xl font-semibold text-text">Не вдалося завантажити контент</h1>
             <p className="mt-4 text-base leading-7 text-muted">{error}</p>
             <div className="mt-8">
-              <Button href="/" variant={ButtonVariant.Ghost}>
+              <Button variant={ButtonVariant.Ghost} onClick={() => window.location.reload()}>
                 Спробувати ще раз
               </Button>
             </div>
