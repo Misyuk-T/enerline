@@ -4,6 +4,7 @@ export enum SectionId {
   Tariffs = 'tariffs',
   Conditions = 'conditions',
   About = 'about',
+  Geography = 'geography',
   Contacts = 'contacts',
 }
 
@@ -26,9 +27,20 @@ export enum ButtonVariant {
   Ghost = 'ghost',
 }
 
+export enum GeographyLocationKind {
+  Headquarters = 'headquarters',
+  Client = 'client',
+}
+
 export interface ImageContent {
   src: string;
   alt: string;
+}
+
+export interface SvgMapRegion {
+  id: string;
+  name: string;
+  path: string;
 }
 
 export interface CallToAction {
@@ -61,6 +73,7 @@ export interface TariffRow {
   category: string;
   price: string;
   conditions: string;
+  details: string[];
 }
 
 export interface TariffsContent {
@@ -90,8 +103,25 @@ export interface AboutFact {
 export interface AboutContent {
   title: string;
   description: string;
-  image: ImageContent;
+  images: ImageContent[];
   facts: AboutFact[];
+}
+
+export interface GeographyLocation {
+  address: string;
+  city: string;
+  kind: GeographyLocationKind;
+  label: string;
+  note: string;
+  x: number;
+  y: number;
+}
+
+export interface GeographyContent {
+  title: string;
+  description: string;
+  mapCaption: string;
+  locations: GeographyLocation[];
 }
 
 export interface ContactsContent {
@@ -110,6 +140,7 @@ export interface SiteContent {
   tariffs: TariffsContent;
   conditions: ConditionsContent;
   about: AboutContent;
+  geography: GeographyContent;
   contacts: ContactsContent;
 }
 
