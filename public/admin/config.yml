@@ -77,6 +77,10 @@ collections:
               - { label: 'Категорія', name: 'category', widget: 'string' }
               - { label: 'Тариф', name: 'price', widget: 'string' }
               - { label: 'Умови', name: 'conditions', widget: 'text' }
+              - label: 'Деталі'
+                name: 'details'
+                widget: 'list'
+                field: { label: 'Пункт', name: 'detail', widget: 'string' }
           - { label: 'Примітка', name: 'note', widget: 'text' }
           - { label: 'Текст кнопки', name: 'ctaLabel', widget: 'string' }
           - { label: 'Посилання кнопки', name: 'ctaHref', widget: 'string' }
@@ -112,9 +116,9 @@ collections:
         fields:
           - { label: 'Заголовок', name: 'title', widget: 'string' }
           - { label: 'Опис', name: 'description', widget: 'text' }
-          - label: 'Зображення'
-            name: 'image'
-            widget: 'object'
+          - label: 'Зображення для слайдера'
+            name: 'images'
+            widget: 'list'
             fields:
               - { label: 'URL', name: 'src', widget: 'string' }
               - { label: 'Alt', name: 'alt', widget: 'string' }
@@ -130,6 +134,33 @@ collections:
                 }
               - { label: 'Заголовок', name: 'title', widget: 'string' }
               - { label: 'Текст', name: 'text', widget: 'text' }
+
+  - name: 'geography'
+    label: 'Географія'
+    files:
+      - label: 'Географія роботи'
+        name: 'geography'
+        file: 'public/content/geography.json'
+        fields:
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Опис', name: 'description', widget: 'text' }
+          - { label: 'Підпис під картою', name: 'mapCaption', widget: 'text' }
+          - label: 'Точки на карті'
+            name: 'locations'
+            widget: 'list'
+            fields:
+              - { label: 'Назва', name: 'label', widget: 'string' }
+              - { label: 'Місто', name: 'city', widget: 'string' }
+              - { label: 'Адреса', name: 'address', widget: 'string' }
+              - { label: 'Опис', name: 'note', widget: 'text' }
+              - {
+                  label: 'Тип',
+                  name: 'kind',
+                  widget: 'select',
+                  options: ['headquarters', 'client'],
+                }
+              - { label: 'Позиція X (%)', name: 'x', widget: 'number', value_type: 'int' }
+              - { label: 'Позиція Y (%)', name: 'y', widget: 'number', value_type: 'int' }
 
   - name: 'contacts'
     label: 'Контакти'

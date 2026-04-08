@@ -4,6 +4,7 @@ import {
   AdvantagesSection,
   ConditionsSection,
   ContactsSection,
+  GeographySection,
   HeroSection,
   TariffsSection,
 } from '@/sections';
@@ -16,6 +17,7 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
   { id: SectionId.Tariffs, label: 'Тарифи' },
   { id: SectionId.Conditions, label: 'Умови' },
   { id: SectionId.About, label: 'Про нас' },
+  { id: SectionId.Geography, label: 'Географія' },
   { id: SectionId.Contacts, label: 'Контакти' },
 ];
 
@@ -62,6 +64,7 @@ export const App = () => {
         <TariffsSection content={data.tariffs} />
         <ConditionsSection content={data.conditions} />
         <AboutSection content={data.about} />
+        <GeographySection content={data.geography} />
         <ContactsSection content={data.contacts} />
       </main>
 
