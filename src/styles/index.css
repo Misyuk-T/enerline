@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background font-sans text-base text-text antialiased;
+}
+
+#root {
+  @apply min-h-screen;
+}
+
+::selection {
+  @apply bg-primary/20 text-text;
+}
+
+@layer components {
+  .section-shell {
+    @apply py-20 md:py-24;
+  }
+
+  .section-card {
+    @apply rounded-card border border-border bg-white shadow-soft;
+  }
+}
