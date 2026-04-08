@@ -1,0 +1,147 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+media_folder: 'public/assets/uploads'
+public_folder: '/assets/uploads'
+
+collections:
+  - name: 'hero'
+    label: 'Hero'
+    files:
+      - label: 'Головний блок'
+        name: 'hero'
+        file: 'public/content/hero.json'
+        fields:
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Підзаголовок', name: 'subtitle', widget: 'text' }
+          - label: 'Переваги'
+            name: 'highlights'
+            widget: 'list'
+            field: { label: 'Перевага', name: 'highlight', widget: 'string' }
+          - label: 'Основна кнопка'
+            name: 'primaryCta'
+            widget: 'object'
+            fields:
+              - { label: 'Текст', name: 'label', widget: 'string' }
+              - { label: 'Посилання', name: 'href', widget: 'string' }
+          - label: 'Додаткова кнопка'
+            name: 'secondaryCta'
+            widget: 'object'
+            fields:
+              - { label: 'Текст', name: 'label', widget: 'string' }
+              - { label: 'Посилання', name: 'href', widget: 'string' }
+          - label: 'Зображення'
+            name: 'image'
+            widget: 'object'
+            fields:
+              - { label: 'URL', name: 'src', widget: 'string' }
+              - { label: 'Alt', name: 'alt', widget: 'string' }
+
+  - name: 'advantages'
+    label: 'Переваги'
+    files:
+      - label: 'Блок переваг'
+        name: 'advantages'
+        file: 'public/content/advantages.json'
+        fields:
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Опис', name: 'description', widget: 'text' }
+          - label: 'Картки'
+            name: 'items'
+            widget: 'list'
+            fields:
+              - {
+                  label: 'Іконка',
+                  name: 'icon',
+                  widget: 'select',
+                  options: ['Zap', 'Factory', 'FileText'],
+                }
+              - { label: 'Заголовок', name: 'title', widget: 'string' }
+              - { label: 'Текст', name: 'text', widget: 'text' }
+
+  - name: 'tariffs'
+    label: 'Тарифи'
+    files:
+      - label: 'Тарифи'
+        name: 'tariffs'
+        file: 'public/content/tariffs.json'
+        fields:
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Підзаголовок', name: 'subtitle', widget: 'text' }
+          - label: 'Рядки таблиці'
+            name: 'rows'
+            widget: 'list'
+            fields:
+              - { label: 'Категорія', name: 'category', widget: 'string' }
+              - { label: 'Тариф', name: 'price', widget: 'string' }
+              - { label: 'Умови', name: 'conditions', widget: 'text' }
+          - { label: 'Примітка', name: 'note', widget: 'text' }
+          - { label: 'Текст кнопки', name: 'ctaLabel', widget: 'string' }
+          - { label: 'Посилання кнопки', name: 'ctaHref', widget: 'string' }
+
+  - name: 'conditions'
+    label: 'Умови'
+    files:
+      - label: 'Умови постачання'
+        name: 'conditions'
+        file: 'public/content/conditions.json'
+        fields:
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Опис', name: 'description', widget: 'text' }
+          - label: 'Пункти'
+            name: 'items'
+            widget: 'list'
+            field: { label: 'Пункт', name: 'item', widget: 'string' }
+          - { label: 'Текст кнопки', name: 'ctaLabel', widget: 'string' }
+          - { label: 'Посилання кнопки', name: 'ctaHref', widget: 'string' }
+          - label: 'Зображення'
+            name: 'image'
+            widget: 'object'
+            fields:
+              - { label: 'URL', name: 'src', widget: 'string' }
+              - { label: 'Alt', name: 'alt', widget: 'string' }
+
+  - name: 'about'
+    label: 'Про компанію'
+    files:
+      - label: 'Про нас'
+        name: 'about'
+        file: 'public/content/about.json'
+        fields:
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Опис', name: 'description', widget: 'text' }
+          - label: 'Зображення'
+            name: 'image'
+            widget: 'object'
+            fields:
+              - { label: 'URL', name: 'src', widget: 'string' }
+              - { label: 'Alt', name: 'alt', widget: 'string' }
+          - label: 'Факти'
+            name: 'facts'
+            widget: 'list'
+            fields:
+              - {
+                  label: 'Іконка',
+                  name: 'icon',
+                  widget: 'select',
+                  options: ['MapPin', 'Cog', 'SunMedium'],
+                }
+              - { label: 'Заголовок', name: 'title', widget: 'string' }
+              - { label: 'Текст', name: 'text', widget: 'text' }
+
+  - name: 'contacts'
+    label: 'Контакти'
+    files:
+      - label: 'Контактна інформація'
+        name: 'contacts'
+        file: 'public/content/contacts.json'
+        fields:
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Опис', name: 'description', widget: 'text' }
+          - { label: 'Email', name: 'email', widget: 'string' }
+          - { label: 'Телефон', name: 'phone', widget: 'string' }
+          - { label: 'Регіон', name: 'region', widget: 'string' }
+          - { label: 'Примітка форми', name: 'formNote', widget: 'text' }
+          - { label: 'Текст кнопки', name: 'submitLabel', widget: 'string' }
