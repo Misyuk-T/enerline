@@ -17,7 +17,7 @@ module.exports = {
   plugins: ['simple-import-sort'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json',
+    project: './tsconfig.eslint.json',
   },
   ignorePatterns: ['dist/**', 'node_modules/**', 'public/admin/**'],
   rules: {
@@ -63,6 +63,15 @@ module.exports = {
     'import/order': 'off',
   },
   overrides: [
+    {
+      files: ['studio-enerline/**/*.{ts,tsx}'],
+      parserOptions: {
+        project: './studio-enerline/tsconfig.json',
+      },
+      rules: {
+        'import/no-relative-parent-imports': 'off',
+      },
+    },
     {
       files: ['vite.config.ts'],
       rules: {

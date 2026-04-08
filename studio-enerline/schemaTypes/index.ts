@@ -1,0 +1,31 @@
+import {
+  aboutFactSchema,
+  aboutSchema,
+  advantageItemSchema,
+  advantagesSchema,
+  callToActionSchema,
+  conditionsSchema,
+  contactsSchema,
+  geographyLocationSchema,
+  geographySchema,
+  heroSchema,
+  imageWithAltSchema,
+  tariffRowSchema,
+  tariffsSchema,
+} from './documents-and-objects';
+
+export const schemaTypes = [
+  callToActionSchema,
+  imageWithAltSchema,
+  advantageItemSchema,
+  tariffRowSchema,
+  aboutFactSchema,
+  geographyLocationSchema,
+  heroSchema,
+  advantagesSchema,
+  tariffsSchema,
+  conditionsSchema,
+  aboutSchema,
+  geographySchema,
+  contactsSchema,
+];
