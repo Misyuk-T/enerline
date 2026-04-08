@@ -3,6 +3,7 @@ import type {
   AdvantagesContent,
   ConditionsContent,
   ContactsContent,
+  GeographyContent,
   HeroContent,
   TariffsContent,
 } from '@/types/content';
@@ -31,8 +32,18 @@ export interface ContactsSectionProps {
   content: ContactsContent;
 }
 
+export interface GeographySectionProps {
+  content: GeographyContent;
+}
+
 export interface ContactFormState {
   name: string;
   contact: string;
   message: string;
+}
+
+export interface ContactFormErrors {
+  name?: string;
+  contact?: string;
+  message?: string;
 }

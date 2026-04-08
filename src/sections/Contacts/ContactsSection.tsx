@@ -4,7 +4,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 
 import { Button, Container, Reveal, SectionHeading } from '@/components';
 
-import { ContactFormState, ContactsSectionProps, SectionId } from '@/types';
+import { ContactFormErrors, ContactFormState, ContactsSectionProps, SectionId } from '@/types';
 
 const INITIAL_FORM_STATE: ContactFormState = {
   name: '',
@@ -12,11 +12,57 @@ const INITIAL_FORM_STATE: ContactFormState = {
   message: '',
 };
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^\+?[0-9\s\-()]{9,20}$/;
+const INITIAL_ERROR_STATE: ContactFormErrors = {};
+
 export const ContactsSection = ({ content }: ContactsSectionProps) => {
   const [formState, setFormState] = useState<ContactFormState>(INITIAL_FORM_STATE);
+  const [errors, setErrors] = useState<ContactFormErrors>(INITIAL_ERROR_STATE);
+
+  const validateForm = (values: ContactFormState): ContactFormErrors => {
+    const nextErrors: ContactFormErrors = {};
+    const trimmedName = values.name.trim();
+    const trimmedContact = values.contact.trim();
+    const trimmedMessage = values.message.trim();
+
+    if (trimmedName.length < 2) {
+      nextErrors.name = 'Вкажіть імʼя щонайменше з 2 символів.';
+    }
+
+    if (!EMAIL_PATTERN.test(trimmedContact) && !PHONE_PATTERN.test(trimmedContact)) {
+      nextErrors.contact = 'Вкажіть коректний email або номер телефону.';
+    }
+
+    if (trimmedMessage.length < 10) {
+      nextErrors.message = 'Повідомлення має містити щонайменше 10 символів.';
+    }
+
+    return nextErrors;
+  };
+
+  const handleFieldChange = (field: keyof ContactFormState, value: string) => {
+    const nextFormState: ContactFormState = {
+      ...formState,
+      [field]: value,
+    };
+
+    setFormState(nextFormState);
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(validateForm(nextFormState));
+    }
+  };
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     event.preventDefault();
+    const nextErrors = validateForm(formState);
+
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
 
     const subject = `Запит з сайту Enerline від ${formState.name}`;
     const body = [
@@ -29,6 +75,7 @@ export const ContactsSection = ({ content }: ContactsSectionProps) => {
 
     window.location.href = `mailto:${content.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setFormState(INITIAL_FORM_STATE);
+    setErrors(INITIAL_ERROR_STATE);
   };
 
   return (
@@ -89,35 +136,51 @@ export const ContactsSection = ({ content }: ContactsSectionProps) => {
                 Ім&apos;я
                 <input
                   id="name"
-                  className="rounded-card border border-border px-4 py-3 text-base text-text outline-none transition focus:border-primary"
+                  className={`rounded-card border px-4 py-3 text-base text-text outline-none transition focus:border-primary ${
+                    errors.name ? 'border-red-400' : 'border-border'
+                  }`}
                   type="text"
                   value={formState.name}
-                  onChange={(event) => setFormState({ ...formState, name: event.target.value })}
+                  onChange={(event) => handleFieldChange('name', event.target.value)}
+                  aria-invalid={Boolean(errors.name)}
                   required
                 />
+                {errors.name ? <span className="text-sm text-red-500">{errors.name}</span> : null}
               </label>
 
               <label className="grid gap-2 text-sm font-medium text-text" htmlFor="contact">
                 Email або телефон
                 <input
                   id="contact"
-                  className="rounded-card border border-border px-4 py-3 text-base text-text outline-none transition focus:border-primary"
+                  className={`rounded-card border px-4 py-3 text-base text-text outline-none transition focus:border-primary ${
+                    errors.contact ? 'border-red-400' : 'border-border'
+                  }`}
                   type="text"
                   value={formState.contact}
-                  onChange={(event) => setFormState({ ...formState, contact: event.target.value })}
+                  onChange={(event) => handleFieldChange('contact', event.target.value)}
+                  aria-invalid={Boolean(errors.contact)}
                   required
                 />
+                {errors.contact ? (
+                  <span className="text-sm text-red-500">{errors.contact}</span>
+                ) : null}
               </label>
 
               <label className="grid gap-2 text-sm font-medium text-text" htmlFor="message">
                 Повідомлення
                 <textarea
                   id="message"
-                  className="min-h-[144px] rounded-card border border-border px-4 py-3 text-base text-text outline-none transition focus:border-primary"
+                  className={`min-h-[144px] rounded-card border px-4 py-3 text-base text-text outline-none transition focus:border-primary ${
+                    errors.message ? 'border-red-400' : 'border-border'
+                  }`}
                   value={formState.message}
-                  onChange={(event) => setFormState({ ...formState, message: event.target.value })}
+                  onChange={(event) => handleFieldChange('message', event.target.value)}
+                  aria-invalid={Boolean(errors.message)}
                   required
                 />
+                {errors.message ? (
+                  <span className="text-sm text-red-500">{errors.message}</span>
+                ) : null}
               </label>
 
               <Button type="submit" className="w-full">
